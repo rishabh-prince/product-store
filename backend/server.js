@@ -9,10 +9,14 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT;
-app.use(cors({
-    origin :"http://localhost:5173",
-}
-))
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:5173"
+        : "https://product-store-sgse.onrender.com",
+  })
+);
 const __dirname = path.resolve();
 app.use(express.json());
 app.use(express.urlencoded());
