@@ -10,19 +10,19 @@ export const useProductStore = create((set)=>({
             return {success:false,message:"please fill all details"}
         }
         const response = await axios.post(
-          "http://localhost:5000/api/createproduct",
+          "/api/createproduct",
           newProduct
         );
         set((state)=>({products:[...state.products,response.data]}));
         return {success:true,message:"product created successfully"};
     },
     fetchProducts: async ()=>{
-        const res = await axios.get("http://localhost:5000/api/products");
+        const res = await axios.get("/api/products");
         console.log(res);
         set({products:res.data.data});
     },
     deleteProduct : async (id)=>{
-        const res = await axios.delete(`http://localhost:5000/api/delete/${id}`);
+        const res = await axios.delete(`/api/delete/${id}`);
         console.log(res);
         if(!res.data.success){
             toast.error(res.message);
@@ -34,7 +34,7 @@ export const useProductStore = create((set)=>({
         return ;
     },
     productUpdate : async (product)=>{
-        const res=await axios.put(`http://localhost:5000/api/updateproduct/${product._id}`,product);
+        const res=await axios.put(`/api/updateproduct/${product._id}`,product);
         console.log(res);
         if(!res.data.success){
             toast.error(res.message);
